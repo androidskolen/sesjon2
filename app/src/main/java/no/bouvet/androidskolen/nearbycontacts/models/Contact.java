@@ -7,13 +7,25 @@ public class Contact {
     private static final Gson gson = new Gson();
 
     private final String name;
+    private final String email;
+    private final String telephone;
 
-    public Contact(String name) {
+    public Contact(String name, String email, String telephone) {
         this.name = name;
+        this.email = email;
+        this.telephone = telephone;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelephone() {
+        return telephone;
     }
 
     @Override
@@ -28,4 +40,5 @@ public class Contact {
     public static Contact fromJson(String json) {
         return gson.fromJson(json, Contact.class);
     }
+
 }

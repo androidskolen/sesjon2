@@ -135,7 +135,13 @@ public class NearbyActivity extends AppCompatActivity implements GoogleApiClient
             unpublish();
             unsubscribe();
             googleApiClient.disconnect();
+            resetModels();
         }
+    }
+
+    private void resetModels() {
+        NearbyContactsListViewModel.INSTANCE.reset();
+        SelectedContactViewModel.INSTANCE.reset();
     }
 
     private void publish(Contact contact) {

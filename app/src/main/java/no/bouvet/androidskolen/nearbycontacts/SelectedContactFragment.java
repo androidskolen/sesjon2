@@ -21,9 +21,11 @@ import no.bouvet.androidskolen.nearbycontacts.models.SelectedContactViewModel;
 
 public class SelectedContactFragment extends Fragment implements ModelUpdateListener, View.OnClickListener {
 
-
     private static final String TAG = SelectedContactFragment.class.getSimpleName();
+
     private TextView contactNameTextView;
+    private TextView contactEmailTextView;
+    private TextView contactTelephoneTextView;
 
     @Nullable
     @Override
@@ -35,10 +37,11 @@ public class SelectedContactFragment extends Fragment implements ModelUpdateList
         saveActivityButton.setOnClickListener(this);
 
         contactNameTextView = (TextView) view.findViewById(R.id.contact_name_textView);
+        contactEmailTextView = (TextView) view.findViewById(R.id.contact_email_textView);
+        contactTelephoneTextView = (TextView) view.findViewById(R.id.contact_telephone_textView);
 
         return view;
     }
-
 
     @Override
     public void onResume() {
@@ -55,10 +58,12 @@ public class SelectedContactFragment extends Fragment implements ModelUpdateList
 
 
     private void updateGui(Contact contact) {
-
-        Log.d(TAG, "Contact selected: " + contact.getName());
-
-        contactNameTextView.setText(contact.getName());
+        if (contact != null) {
+            Log.d(TAG, "Contact selected: " + contact.getName());
+            contactNameTextView.setText(contact.getName());
+            contactEmailTextView.setText(contact.getEmail());
+            contactTelephoneTextView.setText(contact.getTelephone());
+        }
     }
 
     @Override
@@ -66,22 +71,20 @@ public class SelectedContactFragment extends Fragment implements ModelUpdateList
         Intent contactIntent = new Intent(ContactsContract.Intents.Insert.ACTION);
         contactIntent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
 
-        Contact contact = OwnContactViewModel.INSTANCE.getContact();
+        Contact contact = SelectedContactViewModel.INSTANCE.getContact();
 
-        String name = contact.getName();
-        contactIntent.putExtra(ContactsContract.Intents.Insert.NAME, name);
+        contactIntent.putExtra(ContactsContract.Intents.Insert.NAME, contact.getName());
+        contactIntent.putExtra(ContactsContract.Intents.Insert.EMAIL, contact.getEmail());
+        contactIntent.putExtra(ContactsContract.Intents.Insert.PHONE, contact.getTelephone());
 
         startActivityForResult(contactIntent, 1);
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
-        if (requestCode == 1)
-        {
+        if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 Toast.makeText(getActivity(), "Added Contact", Toast.LENGTH_SHORT).show();
             }

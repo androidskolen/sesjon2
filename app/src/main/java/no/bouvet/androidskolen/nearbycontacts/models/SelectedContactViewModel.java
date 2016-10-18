@@ -8,7 +8,6 @@ public enum SelectedContactViewModel {
     private ModelUpdateListener modelUpdateListener;
 
     SelectedContactViewModel() {
-        selectedContact = new Contact("None selected");
     }
 
     public void setModelUpdateListener(ModelUpdateListener listener) {
@@ -35,5 +34,9 @@ public enum SelectedContactViewModel {
         if (modelUpdateListener != null) {
             modelUpdateListener.onModelChanged();
         }
+    }
+
+    public void reset() {
+        selectedContact = null;
     }
 }

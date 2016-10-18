@@ -44,5 +44,7 @@ public enum NearbyContactsListViewModel implements ContactDetectedListener {
         }
     }
 
-
+    public void reset() {
+        detectedContacts.clear();
+    }
 }
