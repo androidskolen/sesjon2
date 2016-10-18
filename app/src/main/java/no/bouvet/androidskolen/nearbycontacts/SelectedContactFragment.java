@@ -23,22 +23,11 @@ public class SelectedContactFragment extends Fragment implements ModelUpdateList
 
     private static final String TAG = SelectedContactFragment.class.getSimpleName();
 
-    private TextView contactNameTextView;
-    private TextView contactEmailTextView;
-    private TextView contactTelephoneTextView;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.selected_contact_fragment, container, false);
-
-        Button saveActivityButton = (Button) view.findViewById(R.id.save_to_contacts_button);
-        saveActivityButton.setOnClickListener(this);
-
-        contactNameTextView = (TextView) view.findViewById(R.id.contact_name_textView);
-        contactEmailTextView = (TextView) view.findViewById(R.id.contact_email_textView);
-        contactTelephoneTextView = (TextView) view.findViewById(R.id.contact_telephone_textView);
 
         return view;
     }
@@ -60,24 +49,24 @@ public class SelectedContactFragment extends Fragment implements ModelUpdateList
     private void updateGui(Contact contact) {
         if (contact != null) {
             Log.d(TAG, "Contact selected: " + contact.getName());
-            contactNameTextView.setText(contact.getName());
-            contactEmailTextView.setText(contact.getEmail());
-            contactTelephoneTextView.setText(contact.getTelephone());
         }
     }
 
     @Override
     public void onClick(View view) {
-        Intent contactIntent = new Intent(ContactsContract.Intents.Insert.ACTION);
-        contactIntent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
 
         Contact contact = SelectedContactViewModel.INSTANCE.getContact();
 
-        contactIntent.putExtra(ContactsContract.Intents.Insert.NAME, contact.getName());
-        contactIntent.putExtra(ContactsContract.Intents.Insert.EMAIL, contact.getEmail());
-        contactIntent.putExtra(ContactsContract.Intents.Insert.PHONE, contact.getTelephone());
+        if (contact != null) {
+            Intent contactIntent = new Intent(ContactsContract.Intents.Insert.ACTION);
 
-        startActivityForResult(contactIntent, 1);
+            contactIntent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+            contactIntent.putExtra(ContactsContract.Intents.Insert.NAME, contact.getName());
+            contactIntent.putExtra(ContactsContract.Intents.Insert.EMAIL, contact.getEmail());
+            contactIntent.putExtra(ContactsContract.Intents.Insert.PHONE, contact.getTelephone());
+
+            startActivityForResult(contactIntent, 1);
+        }
     }
 
     @Override

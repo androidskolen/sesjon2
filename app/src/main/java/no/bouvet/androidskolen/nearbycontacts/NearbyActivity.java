@@ -61,12 +61,31 @@ public class NearbyActivity extends AppCompatActivity implements GoogleApiClient
 
         NearbyContactsFragment nearbyContactsFragment = (NearbyContactsFragment) getFragmentManager().findFragmentById(R.id.nearby_contacts_list_fragment);
         if (nearbyContactsFragment == null || !nearbyContactsFragment.isInLayout()) {
-            nearbyContactsFragment = new NearbyContactsFragment();
 
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_holder, nearbyContactsFragment);
-            fragmentTransaction.commit();
+            // TODO Oppgave 3
+            // Lag et nytt NearbyContactsFragment
+            // Lag en FragmentTransaction som du bruker til å legge til fragmentet.
+            // Se https://developer.android.com/guide/components/fragments.html
+
         }
+    }
+
+    @Override
+    public void onContactSelected(Contact contact) {
+        Log.d(TAG, "Contact selected: " + contact.getName());
+
+        SelectedContactFragment selectedContactFragment = (SelectedContactFragment) getFragmentManager().findFragmentById(R.id.selected_contact_fragment);
+        if (selectedContactFragment == null || !selectedContactFragment.isInLayout()) {
+
+            // TODO Oppgave 3
+            // Lag et nytt SelectedContactFragment
+            // Lag en FragmentTransaction som du bruker til å legge til fragmentet.
+            // Se https://developer.android.com/guide/components/fragments.html
+
+        }
+
+        SelectedContactViewModel.INSTANCE.setSelectedContact(contact);
+
     }
 
     private void setupNearbyMessageListener() {
@@ -171,7 +190,9 @@ public class NearbyActivity extends AppCompatActivity implements GoogleApiClient
             public void onExpired() {
                 super.onExpired();
                 Log.d(TAG, "[onExpired] subscribing anew...");
-                subscribe();
+                if (googleApiClient.isConnected()) {
+                    subscribe();
+                }
             }
         };
         SubscribeOptions options = new SubscribeOptions.Builder().setStrategy(strategy).setCallback(callback).build();
@@ -242,21 +263,4 @@ public class NearbyActivity extends AppCompatActivity implements GoogleApiClient
         }
     }
 
-    @Override
-    public void onContactSelected(Contact contact) {
-        Log.d(TAG, "Contact selected: " + contact.getName());
-
-        SelectedContactFragment selectedContactFragment = (SelectedContactFragment) getFragmentManager().findFragmentById(R.id.selected_contact_fragment);
-
-        if (selectedContactFragment == null || !selectedContactFragment.isInLayout()) {
-            SelectedContactFragment newFragment = new SelectedContactFragment();
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_holder, newFragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-        }
-
-        SelectedContactViewModel.INSTANCE.setSelectedContact(contact);
-
-    }
 }
