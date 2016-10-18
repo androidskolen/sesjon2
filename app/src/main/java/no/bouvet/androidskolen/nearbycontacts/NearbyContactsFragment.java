@@ -21,9 +21,7 @@ import no.bouvet.androidskolen.nearbycontacts.models.NearbyContactsListViewModel
 public class NearbyContactsFragment extends Fragment implements AdapterView.OnItemClickListener, ModelUpdateListener {
 
 
-    private ListView listView;
     private ContactSelectedListener contactSelectedListener;
-    private ArrayAdapter<Contact> contactsArrayAdapter;
 
     @Override
     public void onModelChanged() {
@@ -36,10 +34,9 @@ public class NearbyContactsFragment extends Fragment implements AdapterView.OnIt
 
         View view = inflater.inflate(R.layout.nearby_contacts_fragment, container, false);
 
-        listView = (ListView) view.findViewById(R.id.nearby_contacts_listView);
-        contactsArrayAdapter = new ArrayAdapter<>(getContext(), R.layout.nearby_contacts_listview_item, new ArrayList<Contact>());
-        listView.setAdapter(contactsArrayAdapter);
-        listView.setOnItemClickListener(this);
+        // TODO oppgave 2
+        // Få tak i listview objektet og sett en adapter. Adapteren må ha verdier av typen Contact. Når man klikker på et element i listen
+        // skal this.onItemClick(...) bli kalt
 
         return view;
     }
@@ -75,16 +72,17 @@ public class NearbyContactsFragment extends Fragment implements AdapterView.OnIt
     private void updateAdapterModel() {
         List<Contact> contactList = NearbyContactsListViewModel.INSTANCE.getNearbyContacts();
 
-        if (contactsArrayAdapter != null) {
-            contactsArrayAdapter.clear();
-            contactsArrayAdapter.addAll(contactList);
-            contactsArrayAdapter.notifyDataSetChanged();
-        }
+        // TODO oppgave 2
+        // Oppdater listview adapteren med den nye listen. Pass på at gui refreshes.
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Contact contact = contactsArrayAdapter.getItem(i);
+
+        // TODO oppgave 2
+        // Hent ut valgt Contact objekt fra listview adapteren i stedet for null.
+        Contact contact = null;
+
         if (contactSelectedListener != null) {
             contactSelectedListener.onContactSelected(contact);
         }
