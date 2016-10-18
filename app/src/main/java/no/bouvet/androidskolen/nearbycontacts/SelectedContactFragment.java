@@ -58,14 +58,10 @@ public class SelectedContactFragment extends Fragment implements ModelUpdateList
         Contact contact = SelectedContactViewModel.INSTANCE.getContact();
 
         if (contact != null) {
-            Intent contactIntent = new Intent(ContactsContract.Intents.Insert.ACTION);
-
-            contactIntent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
-            contactIntent.putExtra(ContactsContract.Intents.Insert.NAME, contact.getName());
-            contactIntent.putExtra(ContactsContract.Intents.Insert.EMAIL, contact.getEmail());
-            contactIntent.putExtra(ContactsContract.Intents.Insert.PHONE, contact.getTelephone());
-
-            startActivityForResult(contactIntent, 1);
+            // TODO oppgave 3
+            // Lag en intent som skal lagre en ny kontakt i androids innebygde kontakt-funksjonalitet.
+            // Den skal startes slik at man får et resultat om man lagred eller ikke tilbake. HINT: onActivityResult(..
+            // https://developer.android.com/training/contacts-provider/modify-data.html
         }
     }
 
