@@ -59,8 +59,8 @@ public class OwnContactActivity extends AppCompatActivity implements View.OnClic
         saveOwnContactInfo(contact);
         OwnContactViewModel.INSTANCE.setContact(contact);
 
-        Intent intent = new Intent(this, NearbyActivity.class);
-        startActivity(intent);
+        // TODO oppgave 1
+        // Lag en intent for å starte NearbyActivity og start denne.
     }
 
     private void saveOwnContactInfo(Contact contact) {
