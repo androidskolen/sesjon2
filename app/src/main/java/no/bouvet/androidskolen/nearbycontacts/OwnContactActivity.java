@@ -18,9 +18,6 @@ public class OwnContactActivity extends AppCompatActivity implements View.OnClic
     private final static String PREFERENCE_EMAIL = "OwnContactEmail";
     private final static String PREFERENCE_TELEPHONE = "OwnContactTelephone";
 
-    private EditText userNameEditText;
-    private EditText userEmailEditText;
-    private EditText userTelephoneEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +25,9 @@ public class OwnContactActivity extends AppCompatActivity implements View.OnClic
 
         setContentView(R.layout.activity_own_contact);
 
-        Button startNearbyActivityButton = (Button) findViewById(R.id.start_nearby_activity_button);
-        startNearbyActivityButton.setOnClickListener(this);
-
-        userNameEditText = (EditText) findViewById(R.id.user_name_editText);
-        userEmailEditText = (EditText) findViewById(R.id.user_email_editText);
-        userTelephoneEditText = (EditText) findViewById(R.id.user_telephone_editText);
+        // TODO oppgave 1
+        // Lag felter for navn, epost, telefonnummer og start neste aktivitet knapp
+        // Sett på onClickListener på knapp.
 
     }
 
@@ -43,9 +37,9 @@ public class OwnContactActivity extends AppCompatActivity implements View.OnClic
 
         Contact contact = createContactFromPreferences();
         if (contact != null) {
-            userNameEditText.setText(contact.getName());
-            userEmailEditText.setText(contact.getEmail());
-            userTelephoneEditText.setText(contact.getTelephone());
+            // TODO oppgave 1
+            // Sett verdier fra Contact objektet på navn, email og telefon viewene som ligger
+            // i layout.
         }
     }
 
@@ -81,10 +75,11 @@ public class OwnContactActivity extends AppCompatActivity implements View.OnClic
     }
 
     private Contact createContactFromInput() {
-        String name = userNameEditText.getText().toString();
-        String email = userEmailEditText.getText().toString();
-        String telephone = userTelephoneEditText.getText().toString();
+        // TODO oppgave 1
+        // Hent ut navn, epost og telefonnummer fra GUI og opprett et Contact objekt med dette som
+        // igjen returneres.
 
-        return new Contact(name, email, telephone);
+        //return new Contact(name, email, telephone);
+        return null;
     }
 }

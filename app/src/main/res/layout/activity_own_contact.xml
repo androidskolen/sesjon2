@@ -9,32 +9,4 @@
     android:padding="@dimen/activity_padding"
     tools:context="no.bouvet.androidskolen.nearbycontacts.OwnContactActivity">
 
-    <EditText
-        android:id="@+id/user_name_editText"
-        android:hint="@string/user_name_hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <EditText
-        android:id="@+id/user_email_editText"
-        android:hint="@string/user_email_hint"
-        android:inputType="textEmailAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <EditText
-        android:id="@+id/user_telephone_editText"
-        android:hint="@string/user_telephone_hint"
-        android:inputType="phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/start_nearby_activity_button"
-        android:text="@string/publish_own_user_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"/>
-
 </LinearLayout>
